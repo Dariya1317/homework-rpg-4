@@ -36,9 +36,13 @@ public class PartyComposite implements CombatNode {
 
     @Override
     public int getAttackPower() {
-        // TODO: Composite aggregation
-        // Return total attack of alive children only.
-        return 0;
+        int totalAttack = 0;
+    for (CombatNode child : children) {
+        if (child.isAlive()) {
+            totalAttack += child.getAttackPower();
+        }
+    }
+    return totalAttack;
     }
 
     @Override
@@ -84,9 +88,7 @@ public class PartyComposite implements CombatNode {
 
     @Override
     public void printTree(String indent) {
-        // TODO: Tree visualization
-        // Print this node and recurse into children with increased indent.
-        System.out.println(indent + "+ " + name + " [TODO: compute HP/ATK]");
+        System.out.println(indent + "+ " + name + " [HP=" + getHealth() + ", ATK=" + getAttackPower() + ", Alive=" + isAlive() + "]");
         for (CombatNode child : children) {
             child.printTree(indent + "  ");
         }
