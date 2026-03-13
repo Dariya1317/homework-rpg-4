@@ -12,5 +12,19 @@ public class SingleTargetSkill extends Skill {
         // TODO: Single-target Bridge action
         // 1) Resolve final damage through effect implementor
         // 2) Apply to target node
+        if (target == null) {
+            System.out.println(getSkillName() + ": no target");
+            return;
+        }
+        
+        if (!target.isAlive()) {
+            System.out.println(getSkillName() + ": target " + target.getName() + " is already dead");
+            return;
+        }
+        
+        int damage = resolvedDamage();
+        System.out.println(getSkillName() + " (" + getEffectName() + ") deals " + damage + " damage to " + target.getName());
+        
+        target.takeDamage(damage);
     }
 }
