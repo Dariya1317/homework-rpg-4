@@ -43,12 +43,28 @@ public class PartyComposite implements CombatNode {
 
     @Override
     public void takeDamage(int amount) {
-        // TODO: Composite distribution
-        // Distribute incoming damage across alive children.
-        // Suggested baseline:
-        // 1) Collect alive children
-        // 2) Split amount evenly (or using your own documented rule)
-        // 3) Apply damage to each child
+        if (amount <= 0 || !isAlive()) {
+        return; 
+        }
+        List<CombatNode> aliveChildren = getAliveChildren();
+    
+        if (aliveChildren.isEmpty()) {
+        return; 
+        }
+
+        int baseDamage = amount / aliveChildren.size();
+        int remainder = amount % aliveChildren.size();
+
+        for (int i = 0; i < aliveChildren.size(); i++) {
+        CombatNode child = aliveChildren.get(i);
+        int damageToDeal = baseDamage;
+
+        if (i < remainder) {
+            damageToDeal++;
+        }
+
+        child.takeDamage(damageToDeal);
+        }
     }
 
     @Override
@@ -71,6 +87,9 @@ public class PartyComposite implements CombatNode {
         // TODO: Tree visualization
         // Print this node and recurse into children with increased indent.
         System.out.println(indent + "+ " + name + " [TODO: compute HP/ATK]");
+        for (CombatNode child : children) {
+            child.printTree(indent + "  ");
+        }
     }
 
     private List<CombatNode> getAliveChildren() {
