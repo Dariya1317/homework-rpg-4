@@ -41,18 +41,15 @@ public class RaidEngine {
             round++;
             result.addLine("--- Round " + round + " ---");
             if (teamA.isAlive()) {
-                result.addLine("[Action] " + teamA.getName() + " uses " + skillA.getSkillName());
+                result.addLine(teamA.getName() + " uses " + skillA.getSkillName());
                 skillA.cast(teamB);
             }
             if (teamB.isAlive()) {
-                result.addLine("[Action] " + teamB.getName() + " uses " + skillB.getSkillName());
+                result.addLine(teamB.getName() + " uses " + skillB.getSkillName());
                 skillB.cast(teamA);
             }
 
-            result.addLine("Status: " + teamA.getName() + " HP=" + teamA.getHealth() + 
-                           " | " + teamB.getName() + " HP=" + teamB.getHealth());
-            
-            if (round >= 100) break; 
+            result.addLine("Status: " + teamA.getName() + " HP=" + teamA.getHealth() + " | " + teamB.getName() + " HP=" + teamB.getHealth());
         }
         result.setRounds(round);
         if (teamA.isAlive()) {
@@ -66,3 +63,5 @@ public class RaidEngine {
         return result;
     }
 }
+
+

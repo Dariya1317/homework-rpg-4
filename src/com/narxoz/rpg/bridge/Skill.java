@@ -25,7 +25,7 @@ public abstract class Skill {
         return effect.getEffectName();
     }
 
-    protected int resolvedDamage() {
+    public int resolvedDamage() {
         return effect.computeDamage(basePower);
     }
 
